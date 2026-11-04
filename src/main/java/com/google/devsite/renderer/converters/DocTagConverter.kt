@@ -397,18 +397,27 @@ internal class DocTagConverter(
             // can happen for a lambda parameter that shares the name of a function parameter).
             if (!paramNames.add(name)) return null
             val tag = tagged[name]
-            if (tag == null) {
-                if (warnIfMissing) {
-                    docsHolder.printWarningFor(
-                        "Missing @param tag for parameter `$name`",
-                        documentable,
-                    )
+            val docTags =
+                if (tag == null) {
+                    // Try to find other documentation for the parameter, if there is no @param tag.
+                    val paramDocumentation =
+                        param?.documentation?.get(sourceSet)?.children?.flatMap { it.children }
+                    if (paramDocumentation.isNullOrEmpty()) {
+                        if (warnIfMissing) {
+                            docsHolder.printWarningFor(
+                                "Missing @param tag for parameter `$name`",
+                                documentable,
+                            )
+                        }
+                        return null
+                    }
+                    paramDocumentation
+                } else {
+                    tag.children
                 }
-                return null
-            }
             val extraTags = param?.let { createDefNoteTags(param) }
             val desc =
-                if (extraTags != null) description(tag.children + extraTags) else description(tag)
+                if (extraTags != null) description(docTags + extraTags) else description(docTags)
 
             return DefaultTableRowSummaryItem(
                 TableRowSummaryItem.Params(title = title(), description = desc)
