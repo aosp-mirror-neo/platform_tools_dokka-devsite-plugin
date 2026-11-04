@@ -1077,19 +1077,19 @@ internal class DocTagConverterTest(private val displayLanguage: Language) :
         // We don't want Value and/or Key to appear listed as parameters for map().
         assertThat(paramTable.size).isEqualTo(2)
 
-        val param0 = paramTable.items().first()
-        val param0Left = param0.data.title
-        val param1 = paramTable.items().last()
-        val param1Left = param1.data.title as TypeParameterComponent
+        val toValueRow = paramTable.items().first()
+        val toValueTitle = toValueRow.data.title as TypeParameterComponent
+        val functionRow = paramTable.items().last()
+        val functionTitle = functionRow.data.title
 
-        assertThat(param0Left.data.name).isEqualTo("function")
+        assertThat(functionTitle.data.name).isEqualTo("function")
         javaOnly {
-            assertThat(param0Left.data.type.link().name).isEqualTo("Function1")
-            val param0LambdaTypes = param0Left.generics().map { it.link().name }
+            assertThat(functionTitle.data.type.link().name).isEqualTo("Function1")
+            val param0LambdaTypes = functionTitle.generics().map { it.link().name }
             assertThat(param0LambdaTypes).isEqualTo(listOf("Value", "ToValue"))
         }
         kotlinOnly {
-            val lambdaSymbol = param0Left.data.type as LambdaTypeProjectionComponent
+            val lambdaSymbol = functionTitle.data.type as LambdaTypeProjectionComponent
             assertThat(lambdaSymbol.data.receiver).isNull()
             assertThat(lambdaSymbol.data.lambdaModifiers).isEmpty()
             // The evaluation type of the lambda is ToValue
@@ -1098,14 +1098,14 @@ internal class DocTagConverterTest(private val displayLanguage: Language) :
                 lambdaSymbol.data.lambdaParams.map { it.data.type.link().name }
             assertThat(param0LambdaArgumentType).isEqualTo(listOf("Value"))
         }
-        assertThat(param0.data.description.text())
+        assertThat(functionRow.data.description.text())
             .isEqualTo(
                 "Function that runs on each " +
                     "loaded item, returning items of a potentially new type."
             )
-        assertThat(param1Left.data.name).isEqualTo("ToValue")
-        assertThat(param1Left.projectionName()).isEqualTo("String")
-        assertThat(param1.data.description.text())
+        assertThat(toValueTitle.data.name).isEqualTo("ToValue")
+        assertThat(toValueTitle.projectionName()).isEqualTo("String")
+        assertThat(toValueRow.data.description.text())
             .isEqualTo(
                 "Type of items produced by the " + "new DataSource, from the passed function."
             )
@@ -2573,6 +2573,30 @@ internal class DocTagConverterTest(private val displayLanguage: Language) :
                 "WARN: Missing package-list for java.rmi (go/dackka#missing-package-list)",
                 "WARN: SRC_DIR/main/kotlin/androidx/example/Test.kt:7 Link does not resolve for @throws InvalidExceptionName in DFunction foo. Is it from a package that the containing file does not import? Are docs inherited by an un-documented override function, but the exception class is not in scope in the inheriting class? The general fix for these is to fully qualify the exception name, e.g. `@throws java.io.IOException under some conditions`.",
             )
+    }
+
+    @Test
+    fun `Verify order of parameter table`() {
+        val documentation =
+            """
+            /**
+             * @param l sixth
+             * @param p1 fourth
+             * @param T1 second
+             * @param p2 fifth
+             * @param T0 first
+             * @param p0 third
+             */
+            fun <T0, T1> foo(p0: Int, p1: (l: String) -> Unit, p2: Int) = Unit
+            """
+                .render()
+                .documentation()
+
+        val paramTable = documentation.paramList()
+        assertThat(paramTable.size).isEqualTo(6)
+        val orderedNames = paramTable.map { it.name() }
+        // Order is not based on ordering of @param tags
+        assertThat(orderedNames).isEqualTo(listOf("T0", "T1", "p0", "p1", "p2", "l"))
     }
 
     private fun DModule.description(

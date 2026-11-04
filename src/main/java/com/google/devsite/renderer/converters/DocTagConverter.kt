@@ -375,94 +375,144 @@ internal class DocTagConverter(
         isFromJava: Boolean,
         sourceSet: DokkaConfiguration.DokkaSourceSet,
     ): DocsSummaryList {
-        val tagged = tags.map { it.name() }.toSet()
+        val tagged = tags.associateBy { it.name() }
+        val paramNames = mutableSetOf<String>()
 
-        // @param can refer to parameters, lambda parameters, type parameters, or receivers.
-        val allParamDocumentables = mutableMapOf<String, Pair<ParameterComponent, Documentable>>()
-        if (documentable is DFunction) {
-            documentable.parameters.mapNotNull {
-                val name = it.name!!
-                if (!tagged.contains(name)) {
-                    // Synthetic receiver params don't need @param documentation
-                    if (name == "receiver") return@mapNotNull null
-                    // This warning is primarily for blocking newly-added code
-                    if (documentable.isDeprecated()) return@mapNotNull null
+        /**
+         * Creates the row for a specific parameter, or returns null if there is no documentation
+         * for the parameter.
+         *
+         * @param param [Documentable] for the parameter, null for lambda parameters
+         * @param name name of the parameter, should be non-empty
+         * @param warnIfMissing if true and there is no documentation for the param, logs a warning
+         * @param title creates the [ParameterComponent] for the row, only called if needed
+         */
+        fun paramComponent(
+            param: Documentable?,
+            name: String,
+            warnIfMissing: Boolean,
+            title: () -> ParameterComponent,
+        ): DefaultTableRowSummaryItem<ParameterComponent, DescriptionComponent>? {
+            // If a parameter with this same name has already been documented, skip this one (this
+            // can happen for a lambda parameter that shares the name of a function parameter).
+            if (!paramNames.add(name)) return null
+            val tag = tagged[name]
+            if (tag == null) {
+                if (warnIfMissing) {
                     docsHolder.printWarningFor(
                         "Missing @param tag for parameter `$name`",
                         documentable,
                     )
                 }
-                allParamDocumentables[name] =
-                    Pair(
+                return null
+            }
+            val extraTags = param?.let { createDefNoteTags(param) }
+            val desc =
+                if (extraTags != null) description(tag.children + extraTags) else description(tag)
+
+            return DefaultTableRowSummaryItem(
+                TableRowSummaryItem.Params(title = title(), description = desc)
+            )
+        }
+
+        // Build the table in a specific order:
+        // 1. Generics, in order
+        // 2. Receiver parameter, if it exists
+        // 3. Function parameters, in order
+        // 4. Parameters of any lambda types which are function parameters, in order
+        val params = buildList {
+            for (generic in dGenerics) {
+                add(
+                    paramComponent(
+                        param = generic,
+                        name = generic.name,
+                        // Documentation is not required for generics
+                        warnIfMissing = false,
+                    ) {
+                        paramConverter.componentForTypeParameter(generic, isFromJava)
+                    }
+                )
+            }
+
+            (documentable as? Callable)?.receiver?.let { receiver ->
+                add(
+                    paramComponent(
+                        param = receiver,
+                        name = receiver.name ?: "receiver",
+                        // Documentation is not required for receivers
+                        warnIfMissing = false,
+                    ) {
                         paramConverter.componentForParameter(
-                            param = it,
+                            param = receiver,
                             isSummary = false,
                             isFromJava = isFromJava,
                             parent = documentable,
-                        ),
-                        it,
-                    )
+                        )
+                    }
+                )
             }
-            allParamDocumentables.putAll(
-                recursivelyGetLambdaParamNames(documentable.parameters.map { it.type }).map {
-                    (it.presentableName ?: "") to
-                        Pair(
+
+            if (documentable is DFunction) {
+                for (param in documentable.parameters) {
+                    val name = param.name!!
+                    add(
+                        paramComponent(
+                            param = param,
+                            name = name,
+                            // Require documentation for most function parameters.
+                            // Documentation is not required for receivers or deprecated functions
+                            //  as this warning is primarily for blocking newly-added code.
+                            warnIfMissing = name != "receiver" && !documentable.isDeprecated(),
+                        ) {
+                            paramConverter.componentForParameter(
+                                param = param,
+                                isSummary = false,
+                                isFromJava = isFromJava,
+                                parent = documentable,
+                            )
+                        }
+                    )
+                }
+
+                for (lambdaParam in
+                    recursivelyGetLambdaParamNames(documentable.parameters.map { it.type })) {
+                    val name = lambdaParam.presentableName ?: continue
+                    add(
+                        paramComponent(
+                            // There is no Documentable for a lambda parameter
+                            param = null,
+                            name = name,
+                            // Documentation is not required for lambda parameters
+                            warnIfMissing = false,
+                        ) {
                             paramConverter.componentForLambdaParameter(
-                                projection = it,
+                                projection = lambdaParam,
                                 isFromJava = isFromJava,
                                 sourceSet = sourceSet,
                                 context = documentable,
-                            ),
-                            documentable,
-                        )
-                }
-            )
-        }
-        dGenerics.forEach {
-            allParamDocumentables[it.name] =
-                Pair(paramConverter.componentForTypeParameter(it, isFromJava), it)
-        }
-
-        if (documentable is Callable && documentable.receiver != null) {
-            val recName = documentable.receiver!!.name ?: "receiver"
-            allParamDocumentables[recName] =
-                Pair(
-                    paramConverter.componentForParameter(
-                        param = documentable.receiver!!,
-                        isSummary = false,
-                        isFromJava = isFromJava,
-                        parent = documentable,
-                    ),
-                    documentable.receiver!!,
-                )
-        }
-        val params =
-            tags.mapNotNull { tag ->
-                if (allParamDocumentables[tag.name()] == null) {
-                    docsHolder.printWarningFor(
-                        "Unable to find what is referred to by \"@param " +
-                            "${tag.name()}\" in ${documentable.className} " +
-                            "${documentable.name}, with contents: ${tag.text()}",
-                        documentable,
-                    )
-                    null
-                } else {
-                    val title = allParamDocumentables[tag.name()]!!.first
-                    val paramDoc = allParamDocumentables[tag.name()]?.second
-                    val extraTags = paramDoc?.let { createDefNoteTags(it) }
-                    val desc =
-                        if (extraTags != null) description(tag.children + extraTags)
-                        else description(tag)
-                    DefaultTableRowSummaryItem(
-                        TableRowSummaryItem.Params(title = title, description = desc)
+                            )
+                        }
                     )
                 }
             }
+        }
+
+        // Check that all tags have been accounted for, warning if any are unrecognized.
+        for ((tagName, tag) in tagged) {
+            if (tagName !in paramNames) {
+                docsHolder.printWarningFor(
+                    "Unable to find what is referred to by \"@param " +
+                        "${tagName}\" in ${documentable.className} ${documentable.name}, " +
+                        "with contents: ${tag.text()}",
+                    documentable,
+                )
+            }
+        }
 
         return DefaultSummaryList(
             SummaryList.Params(
                 header = DefaultTableTitle(TableTitle.Params("Parameters")),
-                items = params,
+                items = params.filterNotNull(),
             )
         )
     }
