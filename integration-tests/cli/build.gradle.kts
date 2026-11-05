@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import java.io.ByteArrayOutputStream
+
 // This project confirms that Dokka can be invoked as a .jar from the command line
 
 val runnerJar = configurations.create("runnerJar") {
@@ -62,29 +64,26 @@ abstract class DackkaRunner : DefaultTask() {
         outputDirectory.get().asFile.deleteRecursively()
 
         // Track all warning lines to write to a file sorted after dackka finishes
-        val loggedLines = mutableListOf<String>()
-
+        val outputStream = ByteArrayOutputStream()
         execOperations.javaexec {
             classpath = dackkaClasspath
-            args = listOf(
-                config.get().asFile.absolutePath,
-                "-loggingLevel", "WARN"
-            )
-            logging.addStandardOutputListener {
-                if (it.isNotBlank()) {
-                    loggedLines.add(
-                        it.toString().replace(
-                            projectDirectory.get().asFile.absolutePath,
-                            "\$SRC_DIR"
-                        )
-                    )
-                }
-            }
+            args = listOf(config.get().asFile.absolutePath, "-loggingLevel", "WARN")
+            standardOutput = outputStream
         }
+
+        val loggedLines =
+            outputStream
+                .toString()
+                .lines()
+                .filter { it.isNotBlank() }
+                // Replace directory paths to standardize between different machines
+                .map { it.replace(projectDirectory.get().asFile.absolutePath, $$"$SRC_DIR") }
+                .sorted()
+                .joinToString("\n")
 
         if (loggedLines.isNotEmpty()) {
             val loggingFile = File(outputDirectory.get().asFile, "logging.txt")
-            loggingFile.writeText(loggedLines.sorted().joinToString("\n"))
+            loggingFile.writeText(loggedLines)
         }
     }
 
