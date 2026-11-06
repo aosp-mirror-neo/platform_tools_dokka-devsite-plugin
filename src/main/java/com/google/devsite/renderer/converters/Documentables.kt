@@ -57,6 +57,7 @@ import org.jetbrains.dokka.model.DoubleConstant
 import org.jetbrains.dokka.model.Expression
 import org.jetbrains.dokka.model.ExtraModifiers
 import org.jetbrains.dokka.model.FloatConstant
+import org.jetbrains.dokka.model.InheritedMember
 import org.jetbrains.dokka.model.IntegerConstant
 import org.jetbrains.dokka.model.KotlinModifier
 import org.jetbrains.dokka.model.KotlinVisibility
@@ -359,6 +360,21 @@ private fun DParameter.paramAsString() =
         (type as? UnresolvedBound)?.name // driOrNull doesn't handle UnresolvedBound, sadly.
         ?: type.driOrNull?.let { "${it.classNames} $it" } // by classname, then full dri
         )
+
+/** Whether this function is an override of a parent function. */
+fun DFunction.isOverride(sourceSet: DokkaConfiguration.DokkaSourceSet): Boolean {
+    // The function has the override modifier
+    return extra[AdditionalModifiers]
+        ?.content
+        ?.get(sourceSet)
+        ?.contains(ExtraModifiers.KotlinOnlyModifiers.Override) == true ||
+        // The function is labeled as an inherited member
+        extra[InheritedMember]?.inheritedFrom?.get(sourceSet) != null ||
+        // The function has the java Override annotation
+        extra[Annotations]?.directAnnotations?.get(sourceSet)?.any {
+            it.dri.packageName == "java.lang" && it.dri.classNames == "Override"
+        } == true
+}
 
 /**
  * Returns the value of the @JvmName for this function if one exists or null This is only relevant

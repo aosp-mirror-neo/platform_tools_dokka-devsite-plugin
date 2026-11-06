@@ -576,7 +576,7 @@ internal class DocTagConverterTest(private val displayLanguage: Language) :
 
         val constructorDocs =
             constructorModule.constructors().map {
-                (constructorModule.documentation({ it }).single() as DescriptionComponent).text()
+                (constructorModule.documentation({ it }).first() as DescriptionComponent).text()
             }
         assertThat(constructorDocs)
             .containsExactly("Secondary constructor docs", "Primary constructor docs")
@@ -596,7 +596,7 @@ internal class DocTagConverterTest(private val displayLanguage: Language) :
                 .render()
 
         val constructorDoc =
-            constructorModule.documentation({ this.constructors().single() }).single()
+            constructorModule.documentation({ this.constructors().single() }).first()
                 as DescriptionComponent
 
         assertThat(constructorDoc.text()).isEqualTo("Primary constructor docs")
@@ -661,7 +661,7 @@ internal class DocTagConverterTest(private val displayLanguage: Language) :
             |/**
             | ![Alt text](/path/to/img.jpg)
             |*/
-            |fun foo(a: Int)
+            |fun foo()
         """
                 .render()
                 .documentation()
@@ -670,7 +670,7 @@ internal class DocTagConverterTest(private val displayLanguage: Language) :
             |/**
             | * <img src="/path/to/img.jpg" alt="Alt text"/>
             | */
-            |public void foo(Integer a)
+            |public void foo() {}
         """
                 .render(java = true)
                 .documentation()
@@ -2188,7 +2188,7 @@ internal class DocTagConverterTest(private val displayLanguage: Language) :
                 .render(java = true)
                 .documentation({ this.function("longFunctionName")!! })
         val components =
-            (documentation.single() as DescriptionComponent).data.components.single().children
+            (documentation.first() as DescriptionComponent).data.components.single().children
         val link = components[1] as DocumentationLink
         assertThat(link.text()).doesNotContain("int,Integer") // should be a space here
     }
@@ -2653,6 +2653,114 @@ internal class DocTagConverterTest(private val displayLanguage: Language) :
         assertThat(bRow.name()).isEqualTo("b")
         // This doesn't include the return
         assertThat(bRow.data.description.text()).isEqualTo("not from param tag")
+    }
+
+    @Test
+    fun `Parameter documentation is required with no param tags`() {
+        """
+        /** Documentation missing param tags. */
+        fun foo(i: Int, s: String) = Unit
+        """
+            .render()
+            .documentation()
+        assertThat(logs)
+            .containsExactly(
+                "WARN: SRC_DIR/main/kotlin/androidx/example/Test.kt:3 Missing @param tag for parameter `i` in DFunction foo",
+                "WARN: SRC_DIR/main/kotlin/androidx/example/Test.kt:3 Missing @param tag for parameter `s` in DFunction foo",
+            )
+    }
+
+    @Test
+    fun `Parameter documentation is not required for kotlin enum valueOf`() {
+        """
+        enum class Color {
+            GREEN, YELLOW, RED
+        }
+        """
+            .render()
+            .documentation({
+                packages
+                    .single()
+                    .classlikes
+                    .single { it.name == "Color" }
+                    .functions
+                    .single { it.name == "valueOf" }
+            })
+        assertThat(logs).isEmpty()
+    }
+
+    @Test
+    fun `Parameter documentation is not required for property accessors`() {
+        javaOnly {
+            val module =
+                """
+                /** Documentation without param tag. */
+                var String.extensionProperty: Int
+                    get() = 0
+                    set(value) {}
+                """
+                    .render()
+            val property = module.packages.single().properties.single()
+            val getterAndSetter = listOf(property).gettersAndSetters()
+            module.documentation({ getterAndSetter[0] })
+            module.documentation({ getterAndSetter[1] })
+            assertThat(logs).isEmpty()
+        }
+    }
+
+    @Test
+    fun `Parameter documentation is not required on override`() {
+        val module =
+            """
+            open class Parent {
+                /**
+                 * Documentation missing param tag.
+                 */
+                open fun foo(i: Int) = Unit
+            }
+            class Child : Parent() {
+                override fun foo(i: Int) = Unit
+            }
+            """
+                .render()
+        // Generate documentation for both the parent and child function
+        module.documentation({
+            packages.single().classlikes.single { it.name == "Parent" }.functions.single()
+        })
+        module.documentation({
+            packages.single().classlikes.single { it.name == "Child" }.functions.single()
+        })
+
+        // Only a warning for the parent function
+        assertThat(logs)
+            .containsExactly(
+                "WARN: SRC_DIR/main/kotlin/androidx/example/Test.kt:6 Missing @param tag for parameter `i` in DFunction foo"
+            )
+    }
+
+    @Test
+    fun `Parameter documentation is included for inline documentation without any param tags`() {
+        val documentation =
+            """
+            /** A function */
+            fun foo(
+                /** An int param */
+                i: Int,
+                /** A string param */
+                s: String
+            ) = Unit
+            """
+                .render()
+                .documentation()
+
+        val paramTable = documentation.paramList()
+        assertThat(paramTable.size).isEqualTo(2)
+        val iRow = paramTable[0]
+        assertThat(iRow.name()).isEqualTo("i")
+        assertThat(iRow.data.description.text()).isEqualTo("An int param")
+        val sRow = paramTable[1]
+        assertThat(sRow.name()).isEqualTo("s")
+        assertThat(sRow.data.description.text()).isEqualTo("A string param")
     }
 
     private fun DModule.description(

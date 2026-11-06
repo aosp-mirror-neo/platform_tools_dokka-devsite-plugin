@@ -246,7 +246,37 @@ internal class DocTagConverter(
                 }
             }
 
-        return listOfNotNull(deprecation, description, *tables.toTypedArray())
+        // If a function has parameters but no @param tags, still generate the parameter table.
+        // This will warn about the missing @param tags.
+        val extraParamTable =
+            if (
+                documentable is DFunction &&
+                    documentable.parameters.isNotEmpty() &&
+                    tagsByType.keys.none { it == Param::class.java } &&
+                    // If there is no documentation at all, don't include a parameter table
+                    documentable.documentation.isNotEmpty() &&
+                    // Don't require parameter documentation for synthetic functions
+                    documentable.sources.isNotEmpty() &&
+                    // The kotlin enum valueOf method is synthetic but still has sources
+                    !(documentable.name == "valueOf" && documentable.parameters.size == 1) &&
+                    // Don't require parameter documentation for property accessors
+                    documentable.extra[SourceProperty.PropertyKey] == null &&
+                    // Don't require parameter documentation for overrides, because the doc text is
+                    // from the parent function if the override doesn't have a doc comment.
+                    !documentable.isOverride(documentable.getExpectOrCommonSourceSet())
+            ) {
+                params(
+                    emptyList(),
+                    generics,
+                    documentable,
+                    isFromJava,
+                    documentable.getExpectOrCommonSourceSet(),
+                )
+            } else {
+                null
+            }
+
+        return listOfNotNull(deprecation, description, *tables.toTypedArray(), extraParamTable)
     }
 
     // Turn both "E" and "<E>" to "E"
