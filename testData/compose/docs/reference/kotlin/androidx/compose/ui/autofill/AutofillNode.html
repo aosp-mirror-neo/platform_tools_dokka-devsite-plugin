@@ -179,6 +179,39 @@
             </div>
           </div>
           <pre class="api-signature no-pretty-print"><a href="/reference/kotlin/androidx/compose/ui/autofill/AutofillNode.html#AutofillNode(kotlin.collections.List,androidx.compose.ui.geometry.Rect,kotlin.Function1)">AutofillNode</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;autofillTypes:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="/reference/kotlin/androidx/compose/ui/autofill/AutofillType.html">AutofillType</a>&gt; = listOf(),<br>&nbsp;&nbsp;&nbsp;&nbsp;boundingBox:&nbsp;<a href="/reference/kotlin/androidx/compose/ui/geometry/Rect.html">Rect</a>? = null,<br>&nbsp;&nbsp;&nbsp;&nbsp;onFill:&nbsp;((<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a>) <span style="white-space: nowrap;">-&gt;</span> <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a>)?<br>)</pre>
+          <div class="devsite-table-wrapper">
+            <table class="responsive">
+              <colgroup>
+                <col width="40%">
+                <col>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th colspan="100%">Parameters</th>
+                </tr>
+              </thead>
+              <tbody class="list">
+                <tr>
+                  <td><code>autofillTypes:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="/reference/kotlin/androidx/compose/ui/autofill/AutofillType.html">AutofillType</a>&gt; = listOf()</code></td>
+                  <td>
+                    <p>A list of autofill types for this node. These types are conveyed to the autofill framework and it is used to call <code><a href="/reference/kotlin/androidx/compose/ui/autofill/AutofillNode.html#onFill()">onFill</a></code> with the appropriate value. If you don't set this property, the autofill framework will use heuristics to guess the type. This property is a list because some fields can have multiple types. For instance, userid in a login form can either be a username or an email address. TODO(b/138731416): Check with the autofill service team if the order matters, and how duplicate types are handled.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>boundingBox:&nbsp;<a href="/reference/kotlin/androidx/compose/ui/geometry/Rect.html">Rect</a>? = null</code></td>
+                  <td>
+                    <p>The screen coordinates of the composable being autofilled. This data is used by the autofill framework to decide where to show the autofill popup.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>onFill:&nbsp;((<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a>) <span style="white-space: nowrap;">-&gt;</span> <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a>)?</code></td>
+                  <td>
+                    <p>The callback that is called by the autofill framework to perform autofill.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </devsite-filter >

@@ -1,0 +1,14 @@
+$SRC_DIR/Top.kt:38 Missing @param tag for parameter `foo` in DFunction b
+$SRC_DIR/Top.kt:38 Missing @param tag for parameter `foo` in DFunction b
+$SRC_DIR/Top.kt:38 Missing @param tag for parameter `foo` in DFunction b
+$SRC_DIR/Top.kt:38 Missing @param tag for parameter `i1` in DFunction b
+$SRC_DIR/Top.kt:38 Missing @param tag for parameter `i1` in DFunction b
+$SRC_DIR/Top.kt:38 Missing @param tag for parameter `i1` in DFunction b
+$SRC_DIR/Top.kt:38 Missing @param tag for parameter `i2` in DFunction b
+$SRC_DIR/Top.kt:38 Missing @param tag for parameter `i2` in DFunction b
+$SRC_DIR/Top.kt:38 Missing @param tag for parameter `i2` in DFunction b
+$SRC_DIR/Top.kt:38 Missing @param tag for parameter `i3` in DFunction b
+$SRC_DIR/Top.kt:38 Missing @param tag for parameter `i3` in DFunction b
+$SRC_DIR/Top.kt:38 Missing @param tag for parameter `i3` in DFunction b
+$SRC_DIR/Top.kt:80 Missing @param tag for parameter `a` in DFunction Wassup
+$SRC_DIR/Top.kt:80 Missing @param tag for parameter `f` in DFunction Wassup

@@ -153,6 +153,39 @@
             </div>
           </div>
           <pre class="api-signature no-pretty-print"><a href="/reference/kotlin/androidx/annotation/IntDef.html#IntDef(kotlin.IntArray,kotlin.Boolean,kotlin.Boolean)">IntDef</a>(vararg&nbsp;value:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a> = [],&nbsp;flag:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a> = false,&nbsp;open:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a> = false)</pre>
+          <div class="devsite-table-wrapper">
+            <table class="responsive">
+              <colgroup>
+                <col width="40%">
+                <col>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th colspan="100%">Parameters</th>
+                </tr>
+              </thead>
+              <tbody class="list">
+                <tr>
+                  <td><code>vararg&nbsp;value:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a> = []</code></td>
+                  <td>
+                    <p>Defines the allowed constants for this element</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>flag:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a> = false</code></td>
+                  <td>
+                    <p>Defines whether the constants can be used as a flag, or just as an enum (the default)</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>open:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a> = false</code></td>
+                  <td>
+                    <p>Whether any other values are allowed. Normally this is not the case, but this allows you to specify a set of expected constants, which helps code completion in the IDE and documentation generation and so on, but without flagging compilation warnings if other values are specified.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </devsite-filter >

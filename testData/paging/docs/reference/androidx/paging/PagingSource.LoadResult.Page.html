@@ -308,6 +308,51 @@ fun NetworkResponseObject.toPage(pageNumber: Int): LoadResult.Page&lt;Int, Item&
           </div>
         </div>
         <pre class="api-signature no-pretty-print">public&nbsp;&lt;Key&nbsp;extends&nbsp;<a href="https://developer.android.com/reference/java/lang/Object.html">Object</a>,&nbsp;Value&nbsp;extends&nbsp;<a href="https://developer.android.com/reference/java/lang/Object.html">Object</a>&gt; <a href="/reference/androidx/paging/PagingSource.LoadResult.Page.html#Page(kotlin.collections.List,kotlin.Any,kotlin.Any,kotlin.Int,kotlin.Int)">Page</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;@<a href="https://developer.android.com/reference/androidx/annotation/NonNull.html">NonNull</a> <a href="https://developer.android.com/reference/java/util/List.html">List</a>&lt;@<a href="https://developer.android.com/reference/androidx/annotation/NonNull.html">NonNull</a> Value&gt;&nbsp;data,<br>&nbsp;&nbsp;&nbsp;&nbsp;Key&nbsp;prevKey,<br>&nbsp;&nbsp;&nbsp;&nbsp;Key&nbsp;nextKey,<br>&nbsp;&nbsp;&nbsp;&nbsp;@<a href="https://developer.android.com/reference/androidx/annotation/IntRange.html">IntRange</a>(from&nbsp;=&nbsp;-2147483648) int&nbsp;itemsBefore,<br>&nbsp;&nbsp;&nbsp;&nbsp;@<a href="https://developer.android.com/reference/androidx/annotation/IntRange.html">IntRange</a>(from&nbsp;=&nbsp;-2147483648) int&nbsp;itemsAfter<br>)</pre>
+        <div class="devsite-table-wrapper">
+          <table class="responsive">
+            <colgroup>
+              <col width="40%">
+              <col>
+            </colgroup>
+            <thead>
+              <tr>
+                <th colspan="100%">Parameters</th>
+              </tr>
+            </thead>
+            <tbody class="list">
+              <tr>
+                <td><code>@<a href="https://developer.android.com/reference/androidx/annotation/NonNull.html">NonNull</a> <a href="https://developer.android.com/reference/java/util/List.html">List</a>&lt;@<a href="https://developer.android.com/reference/androidx/annotation/NonNull.html">NonNull</a> Value&gt;&nbsp;data</code></td>
+                <td>
+                  <p>Loaded data</p>
+                </td>
+              </tr>
+              <tr>
+                <td><code>Key&nbsp;prevKey</code></td>
+                <td>
+                  <p><code><a href="/reference/androidx/paging/PagingSource.LoadResult.Page.html">Key</a></code> for previous page if more data can be loaded in that direction, <code>null</code> otherwise.</p>
+                </td>
+              </tr>
+              <tr>
+                <td><code>Key&nbsp;nextKey</code></td>
+                <td>
+                  <p><code><a href="/reference/androidx/paging/PagingSource.LoadResult.Page.html">Key</a></code> for next page if more data can be loaded in that direction, <code>null</code> otherwise.</p>
+                </td>
+              </tr>
+              <tr>
+                <td><code>@<a href="https://developer.android.com/reference/androidx/annotation/IntRange.html">IntRange</a>(from&nbsp;=&nbsp;-2147483648) int&nbsp;itemsBefore</code></td>
+                <td>
+                  <p>Count of items before the loaded data. Must be implemented if <code><a href="/reference/androidx/paging/PagingSource.html#jumpingSupported()">jumping</a></code> is enabled. Optional otherwise.</p>
+                </td>
+              </tr>
+              <tr>
+                <td><code>@<a href="https://developer.android.com/reference/androidx/annotation/IntRange.html">IntRange</a>(from&nbsp;=&nbsp;-2147483648) int&nbsp;itemsAfter</code></td>
+                <td>
+                  <p>Count of items after the loaded data. Must be implemented if <code><a href="/reference/androidx/paging/PagingSource.html#jumpingSupported()">jumping</a></code> is enabled. Optional otherwise.</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <div class="list">

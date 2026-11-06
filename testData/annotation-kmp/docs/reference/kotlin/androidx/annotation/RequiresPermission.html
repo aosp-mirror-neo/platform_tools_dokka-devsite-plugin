@@ -182,6 +182,48 @@
             </div>
           </div>
           <pre class="api-signature no-pretty-print"><a href="/reference/kotlin/androidx/annotation/RequiresPermission.html#RequiresPermission(kotlin.String,kotlin.Array,kotlin.Array,kotlin.Boolean)">RequiresPermission</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;value:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;,<br>&nbsp;&nbsp;&nbsp;&nbsp;allOf:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a>&lt;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a>&gt; = [],<br>&nbsp;&nbsp;&nbsp;&nbsp;anyOf:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a>&lt;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a>&gt; = [],<br>&nbsp;&nbsp;&nbsp;&nbsp;conditional:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a> = false<br>)</pre>
+          <div class="devsite-table-wrapper">
+            <table class="responsive">
+              <colgroup>
+                <col width="40%">
+                <col>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th colspan="100%">Parameters</th>
+                </tr>
+              </thead>
+              <tbody class="list">
+                <tr>
+                  <td><code>value:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;</code></td>
+                  <td>
+                    <p>The name of the permission that is required, if precisely one permission is required. If more than one permission is required, specify either <code><a href="/reference/kotlin/androidx/annotation/RequiresPermission.html#(kotlin.String,kotlin.Array,kotlin.Array,kotlin.Boolean)">allOf</a></code> or <code><a href="/reference/kotlin/androidx/annotation/RequiresPermission.html#(kotlin.String,kotlin.Array,kotlin.Array,kotlin.Boolean)">anyOf</a></code> instead.</p>
+                    <p>If specified, <code><a href="/reference/kotlin/androidx/annotation/RequiresPermission.html#(kotlin.String,kotlin.Array,kotlin.Array,kotlin.Boolean)">anyOf</a></code> and <code><a href="/reference/kotlin/androidx/annotation/RequiresPermission.html#(kotlin.String,kotlin.Array,kotlin.Array,kotlin.Boolean)">allOf</a></code> must both be null.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>allOf:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a>&lt;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a>&gt; = []</code></td>
+                  <td>
+                    <p>Specifies a list of permission names that are all required.</p>
+                    <p>If specified, <code><a href="/reference/kotlin/androidx/annotation/RequiresPermission.html#(kotlin.String,kotlin.Array,kotlin.Array,kotlin.Boolean)">anyOf</a></code> and <code><a href="/reference/kotlin/androidx/annotation/RequiresPermission.html#(kotlin.String,kotlin.Array,kotlin.Array,kotlin.Boolean)">value</a></code> must both be null.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>anyOf:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a>&lt;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a>&gt; = []</code></td>
+                  <td>
+                    <p>Specifies a list of permission names where at least one is required</p>
+                    <p>If specified, <code><a href="/reference/kotlin/androidx/annotation/RequiresPermission.html#(kotlin.String,kotlin.Array,kotlin.Array,kotlin.Boolean)">allOf</a></code> and <code><a href="/reference/kotlin/androidx/annotation/RequiresPermission.html#(kotlin.String,kotlin.Array,kotlin.Array,kotlin.Boolean)">value</a></code> must both be null.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>conditional:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a> = false</code></td>
+                  <td>
+                    <p>If true, the permission may not be required in all cases (e.g. it may only be enforced on certain platforms, or for certain call parameters, etc.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </devsite-filter >

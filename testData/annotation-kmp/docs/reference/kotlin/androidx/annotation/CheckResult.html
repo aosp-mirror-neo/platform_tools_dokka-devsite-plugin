@@ -110,6 +110,29 @@
             </div>
           </div>
           <pre class="api-signature no-pretty-print"><a href="/reference/kotlin/androidx/annotation/CheckResult.html#CheckResult(kotlin.String)">CheckResult</a>(suggest:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;)</pre>
+          <div class="devsite-table-wrapper">
+            <table class="responsive">
+              <colgroup>
+                <col width="40%">
+                <col>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th colspan="100%">Parameters</th>
+                </tr>
+              </thead>
+              <tbody class="list">
+                <tr>
+                  <td><code>suggest:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;</code></td>
+                  <td>
+                    <p>Defines the name of the suggested method to use instead, if applicable (using the same signature format as javadoc.) If there is more than one possibility, list them all separated by commas.</p>
+                    <p>For example, ProcessBuilder has a method named <code>redirectErrorStream()</code> which sounds like it might redirect the error stream. It does not. It's just a getter which returns whether the process builder will redirect the error stream, and to actually set it, you must call <code>redirectErrorStream(boolean)</code>. In that case, the method should be defined like this:</p>
+                    <pre class="prettyprint">@CheckResult(suggest=&quot;#redirectErrorStream(boolean)&quot;)<br>public boolean redirectErrorStream() { ... }</pre>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </devsite-filter >

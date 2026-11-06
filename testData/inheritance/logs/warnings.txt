@@ -1,2 +1,10 @@
+$SRC_DIR/KotlinFile.kt:78 Missing @param tag for parameter `entries` in DFunction KotlinMap
+$SRC_DIR/KotlinFile.kt:78 Missing @param tag for parameter `entries` in DFunction KotlinMap
+$SRC_DIR/KotlinFile.kt:78 Missing @param tag for parameter `keys` in DFunction KotlinMap
+$SRC_DIR/KotlinFile.kt:78 Missing @param tag for parameter `keys` in DFunction KotlinMap
+$SRC_DIR/KotlinFile.kt:78 Missing @param tag for parameter `size` in DFunction KotlinMap
+$SRC_DIR/KotlinFile.kt:78 Missing @param tag for parameter `size` in DFunction KotlinMap
+$SRC_DIR/KotlinFile.kt:78 Missing @param tag for parameter `values` in DFunction KotlinMap
+$SRC_DIR/KotlinFile.kt:78 Missing @param tag for parameter `values` in DFunction KotlinMap
 Missing package-list for kotlin.internal (go/dackka#missing-package-list)
 Missing package-list for kotlin.internal (go/dackka#missing-package-list)

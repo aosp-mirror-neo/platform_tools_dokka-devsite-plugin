@@ -1,3 +1,7 @@
+$SRC_DIR/commonMain/androidx/annotation/GuardedBy.kt:47 Missing @param tag for parameter `value` in DFunction GuardedBy
+$SRC_DIR/jvmMain/androidx/annotation/Dimension.kt:33 Missing @param tag for parameter `unit` in DFunction Dimension
+$SRC_DIR/jvmMain/androidx/annotation/RequiresPermission.kt:123 Missing @param tag for parameter `value` in DFunction Read
+$SRC_DIR/jvmMain/androidx/annotation/RequiresPermission.kt:141 Missing @param tag for parameter `value` in DFunction Write
 Couldn't resolve link: [android.graphics.Color] in file:///$SRC_DIR/commonMain/androidx/annotation/ColorLong.kt:30:9 (root/commonMain)
 Couldn't resolve link: [android.graphics.Color] in file:///$SRC_DIR/commonMain/androidx/annotation/ColorLong.kt:30:9 (root/commonMain)
 Couldn't resolve link: [android.graphics.Color] in file:///$SRC_DIR/commonMain/androidx/annotation/ColorLong.kt:30:9 (root/commonMain)

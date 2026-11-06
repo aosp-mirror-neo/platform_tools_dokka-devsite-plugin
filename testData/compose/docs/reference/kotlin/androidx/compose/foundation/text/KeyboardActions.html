@@ -249,6 +249,59 @@
             </div>
           </div>
           <pre class="api-signature no-pretty-print"><a href="/reference/kotlin/androidx/compose/foundation/text/KeyboardActions.html#KeyboardActions(kotlin.Function1,kotlin.Function1,kotlin.Function1,kotlin.Function1,kotlin.Function1,kotlin.Function1)">KeyboardActions</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;onDone:&nbsp;(<a href="/reference/kotlin/androidx/compose/foundation/text/KeyboardActionScope.html">KeyboardActionScope</a>.() <span style="white-space: nowrap;">-&gt;</span> <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a>)? = null,<br>&nbsp;&nbsp;&nbsp;&nbsp;onGo:&nbsp;(<a href="/reference/kotlin/androidx/compose/foundation/text/KeyboardActionScope.html">KeyboardActionScope</a>.() <span style="white-space: nowrap;">-&gt;</span> <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a>)? = null,<br>&nbsp;&nbsp;&nbsp;&nbsp;onNext:&nbsp;(<a href="/reference/kotlin/androidx/compose/foundation/text/KeyboardActionScope.html">KeyboardActionScope</a>.() <span style="white-space: nowrap;">-&gt;</span> <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a>)? = null,<br>&nbsp;&nbsp;&nbsp;&nbsp;onPrevious:&nbsp;(<a href="/reference/kotlin/androidx/compose/foundation/text/KeyboardActionScope.html">KeyboardActionScope</a>.() <span style="white-space: nowrap;">-&gt;</span> <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a>)? = null,<br>&nbsp;&nbsp;&nbsp;&nbsp;onSearch:&nbsp;(<a href="/reference/kotlin/androidx/compose/foundation/text/KeyboardActionScope.html">KeyboardActionScope</a>.() <span style="white-space: nowrap;">-&gt;</span> <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a>)? = null,<br>&nbsp;&nbsp;&nbsp;&nbsp;onSend:&nbsp;(<a href="/reference/kotlin/androidx/compose/foundation/text/KeyboardActionScope.html">KeyboardActionScope</a>.() <span style="white-space: nowrap;">-&gt;</span> <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a>)? = null<br>)</pre>
+          <div class="devsite-table-wrapper">
+            <table class="responsive">
+              <colgroup>
+                <col width="40%">
+                <col>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th colspan="100%">Parameters</th>
+                </tr>
+              </thead>
+              <tbody class="list">
+                <tr>
+                  <td><code>onDone:&nbsp;(<a href="/reference/kotlin/androidx/compose/foundation/text/KeyboardActionScope.html">KeyboardActionScope</a>.() <span style="white-space: nowrap;">-&gt;</span> <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a>)? = null</code></td>
+                  <td>
+                    <p>This is run when the user triggers the <code><a href="/reference/kotlin/androidx/compose/ui/text/input/ImeAction.html#Done()">Done</a></code> action. A null value indicates that the default implementation if any, should be executed.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>onGo:&nbsp;(<a href="/reference/kotlin/androidx/compose/foundation/text/KeyboardActionScope.html">KeyboardActionScope</a>.() <span style="white-space: nowrap;">-&gt;</span> <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a>)? = null</code></td>
+                  <td>
+                    <p>This is run when the user triggers the <code><a href="/reference/kotlin/androidx/compose/ui/text/input/ImeAction.html#Go()">Go</a></code> action. A null value indicates that the default implementation if any, should be executed.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>onNext:&nbsp;(<a href="/reference/kotlin/androidx/compose/foundation/text/KeyboardActionScope.html">KeyboardActionScope</a>.() <span style="white-space: nowrap;">-&gt;</span> <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a>)? = null</code></td>
+                  <td>
+                    <p>This is run when the user triggers the <code><a href="/reference/kotlin/androidx/compose/ui/text/input/ImeAction.html#Next()">Next</a></code> action. A null value indicates that the default implementation should be executed. The default implementation moves focus to the next item in the focus traversal order.</p>
+                    <p>See <code><a href="/reference/kotlin/androidx/compose/ui/focus/focusProperties.modifier.html#(androidx.compose.ui.Modifier).focusProperties(kotlin.Function1)">Modifier.focusProperties()</a></code> for more details on how to specify a custom focus order if needed.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>onPrevious:&nbsp;(<a href="/reference/kotlin/androidx/compose/foundation/text/KeyboardActionScope.html">KeyboardActionScope</a>.() <span style="white-space: nowrap;">-&gt;</span> <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a>)? = null</code></td>
+                  <td>
+                    <p>This is run when the user triggers the <code><a href="/reference/kotlin/androidx/compose/ui/text/input/ImeAction.html#Previous()">Previous</a></code> action. A null value indicates that the default implementation should be executed. The default implementation moves focus to the previous item in the focus traversal order.</p>
+                    <p>See <code><a href="/reference/kotlin/androidx/compose/ui/focus/focusProperties.modifier.html#(androidx.compose.ui.Modifier).focusProperties(kotlin.Function1)">Modifier.focusProperties()</a></code> for more details on how to specify a custom focus order if needed.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>onSearch:&nbsp;(<a href="/reference/kotlin/androidx/compose/foundation/text/KeyboardActionScope.html">KeyboardActionScope</a>.() <span style="white-space: nowrap;">-&gt;</span> <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a>)? = null</code></td>
+                  <td>
+                    <p>This is run when the user triggers the <code><a href="/reference/kotlin/androidx/compose/ui/text/input/ImeAction.html#Search()">Search</a></code> action. A null value indicates that the default implementation if any, should be executed.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>onSend:&nbsp;(<a href="/reference/kotlin/androidx/compose/foundation/text/KeyboardActionScope.html">KeyboardActionScope</a>.() <span style="white-space: nowrap;">-&gt;</span> <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a>)? = null</code></td>
+                  <td>
+                    <p>This is run when the user triggers the <code><a href="/reference/kotlin/androidx/compose/ui/text/input/ImeAction.html#Send()">Send</a></code> action. A null value indicates that the default implementation if any, should be executed.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </devsite-filter >

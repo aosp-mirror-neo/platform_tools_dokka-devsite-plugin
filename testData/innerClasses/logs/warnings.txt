@@ -1,0 +1,2 @@
+$SRC_DIR/OuterClass.kt:29 Missing @param tag for parameter `choice` in DFunction inner
+$SRC_DIR/OuterClass.kt:29 Missing @param tag for parameter `choice` in DFunction inner

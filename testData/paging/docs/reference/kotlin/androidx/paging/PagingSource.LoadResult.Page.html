@@ -323,6 +323,51 @@ fun NetworkResponseObject.toPage(pageNumber: Int): LoadResult.Page&lt;Int, Item&
           </div>
         </div>
         <pre class="api-signature no-pretty-print">&lt;Key&nbsp;:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a>,&nbsp;Value&nbsp;:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a>&gt; <a href="/reference/kotlin/androidx/paging/PagingSource.LoadResult.Page.html#Page(kotlin.collections.List,kotlin.Any,kotlin.Any,kotlin.Int,kotlin.Int)">Page</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;data:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a>&lt;Value&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;prevKey:&nbsp;Key?,<br>&nbsp;&nbsp;&nbsp;&nbsp;nextKey:&nbsp;Key?,<br>&nbsp;&nbsp;&nbsp;&nbsp;itemsBefore:&nbsp;@<a href="https://developer.android.com/reference/androidx/annotation/IntRange.html">IntRange</a>(from&nbsp;=&nbsp;-2147483648) <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a> = COUNT_UNDEFINED,<br>&nbsp;&nbsp;&nbsp;&nbsp;itemsAfter:&nbsp;@<a href="https://developer.android.com/reference/androidx/annotation/IntRange.html">IntRange</a>(from&nbsp;=&nbsp;-2147483648) <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a> = COUNT_UNDEFINED<br>)</pre>
+        <div class="devsite-table-wrapper">
+          <table class="responsive">
+            <colgroup>
+              <col width="40%">
+              <col>
+            </colgroup>
+            <thead>
+              <tr>
+                <th colspan="100%">Parameters</th>
+              </tr>
+            </thead>
+            <tbody class="list">
+              <tr>
+                <td><code>data:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a>&lt;Value&gt;</code></td>
+                <td>
+                  <p>Loaded data</p>
+                </td>
+              </tr>
+              <tr>
+                <td><code>prevKey:&nbsp;Key?</code></td>
+                <td>
+                  <p><code><a href="/reference/kotlin/androidx/paging/PagingSource.LoadResult.Page.html">Key</a></code> for previous page if more data can be loaded in that direction, <code>null</code> otherwise.</p>
+                </td>
+              </tr>
+              <tr>
+                <td><code>nextKey:&nbsp;Key?</code></td>
+                <td>
+                  <p><code><a href="/reference/kotlin/androidx/paging/PagingSource.LoadResult.Page.html">Key</a></code> for next page if more data can be loaded in that direction, <code>null</code> otherwise.</p>
+                </td>
+              </tr>
+              <tr>
+                <td><code>itemsBefore:&nbsp;@<a href="https://developer.android.com/reference/androidx/annotation/IntRange.html">IntRange</a>(from&nbsp;=&nbsp;-2147483648) <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a> = COUNT_UNDEFINED</code></td>
+                <td>
+                  <p>Count of items before the loaded data. Must be implemented if <code><a href="/reference/kotlin/androidx/paging/PagingSource.html#jumpingSupported()">jumping</a></code> is enabled. Optional otherwise.</p>
+                </td>
+              </tr>
+              <tr>
+                <td><code>itemsAfter:&nbsp;@<a href="https://developer.android.com/reference/androidx/annotation/IntRange.html">IntRange</a>(from&nbsp;=&nbsp;-2147483648) <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a> = COUNT_UNDEFINED</code></td>
+                <td>
+                  <p>Count of items after the loaded data. Must be implemented if <code><a href="/reference/kotlin/androidx/paging/PagingSource.html#jumpingSupported()">jumping</a></code> is enabled. Optional otherwise.</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <div class="list">

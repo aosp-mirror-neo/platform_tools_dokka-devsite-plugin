@@ -433,6 +433,27 @@
             </div>
           </div>
           <pre class="api-signature no-pretty-print">&lt;T&nbsp;:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a>?,&nbsp;V&nbsp;:&nbsp;<a href="/reference/kotlin/androidx/compose/animation/core/AnimationVector.html">AnimationVector</a>&gt; <a href="/reference/kotlin/androidx/compose/animation/core/DecayAnimation.html#DecayAnimation(androidx.compose.animation.core.VectorizedDecayAnimationSpec,androidx.compose.animation.core.TwoWayConverter,kotlin.Any,androidx.compose.animation.core.AnimationVector)">DecayAnimation</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;animationSpec:&nbsp;<a href="/reference/kotlin/androidx/compose/animation/core/VectorizedDecayAnimationSpec.html">VectorizedDecayAnimationSpec</a>&lt;V&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;typeConverter:&nbsp;<a href="/reference/kotlin/androidx/compose/animation/core/TwoWayConverter.html">TwoWayConverter</a>&lt;T,&nbsp;V&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;initialValue:&nbsp;T,<br>&nbsp;&nbsp;&nbsp;&nbsp;initialVelocityVector:&nbsp;V<br>)</pre>
+          <div class="devsite-table-wrapper">
+            <table class="responsive">
+              <colgroup>
+                <col width="40%">
+                <col>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th colspan="100%">Parameters</th>
+                </tr>
+              </thead>
+              <tbody class="list">
+                <tr>
+                  <td><code>typeConverter:&nbsp;<a href="/reference/kotlin/androidx/compose/animation/core/TwoWayConverter.html">TwoWayConverter</a>&lt;T,&nbsp;V&gt;</code></td>
+                  <td>
+                    <p>The <code><a href="/reference/kotlin/androidx/compose/animation/core/TwoWayConverter.html">TwoWayConverter</a></code> that will be used to convert value/velocity from any arbitrary data type to <code><a href="/reference/kotlin/androidx/compose/animation/core/AnimationVector.html">AnimationVector</a></code>. This makes it possible to animate different dimensions of the data object independently (e.g. x/y dimensions of the position data).</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </devsite-filter >

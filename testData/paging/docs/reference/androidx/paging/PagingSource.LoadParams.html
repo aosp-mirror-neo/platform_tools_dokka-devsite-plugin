@@ -165,6 +165,34 @@
           </div>
         </div>
         <pre class="api-signature no-pretty-print">protected&nbsp;&lt;Key&nbsp;extends&nbsp;<a href="https://developer.android.com/reference/java/lang/Object.html">Object</a>&gt; <a href="/reference/androidx/paging/PagingSource.LoadParams.html#LoadParams(kotlin.Int,kotlin.Boolean)">LoadParams</a>(int&nbsp;loadSize,&nbsp;boolean&nbsp;placeholdersEnabled)</pre>
+        <div class="devsite-table-wrapper">
+          <table class="responsive">
+            <colgroup>
+              <col width="40%">
+              <col>
+            </colgroup>
+            <thead>
+              <tr>
+                <th colspan="100%">Parameters</th>
+              </tr>
+            </thead>
+            <tbody class="list">
+              <tr>
+                <td><code>int&nbsp;loadSize</code></td>
+                <td>
+                  <p>Requested number of items to load.</p>
+                  <p>Note: It is valid for <code><a href="/reference/androidx/paging/PagingSource.html#load(androidx.paging.PagingSource.LoadParams)">PagingSource.load</a></code> to return a <code><a href="/reference/androidx/paging/PagingSource.LoadResult.html">LoadResult</a></code> that has a different number of items than the requested load size.</p>
+                </td>
+              </tr>
+              <tr>
+                <td><code>boolean&nbsp;placeholdersEnabled</code></td>
+                <td>
+                  <p>From <code><a href="/reference/androidx/paging/PagingConfig.html#enablePlaceholders()">PagingConfig.enablePlaceholders</a></code>, true if placeholders are enabled and the load request for this <code><a href="/reference/androidx/paging/PagingSource.LoadParams.html">LoadParams</a></code> should populate <code><a href="/reference/androidx/paging/PagingSource.LoadResult.Page.html#itemsBefore()">LoadResult.Page.itemsBefore</a></code> and <code><a href="/reference/androidx/paging/PagingSource.LoadResult.Page.html#itemsAfter()">LoadResult.Page.itemsAfter</a></code> if possible.</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <div class="list">

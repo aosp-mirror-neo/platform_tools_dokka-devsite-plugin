@@ -260,6 +260,57 @@
             </div>
           </div>
           <pre class="api-signature no-pretty-print"><a href="/reference/kotlin/androidx/compose/ui/window/PopupProperties.html#PopupProperties(kotlin.Int,kotlin.Boolean,kotlin.Boolean,kotlin.Boolean,kotlin.Boolean,kotlin.Boolean)">PopupProperties</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;flags:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;inheritSecurePolicy:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a> = true,<br>&nbsp;&nbsp;&nbsp;&nbsp;dismissOnBackPress:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a> = true,<br>&nbsp;&nbsp;&nbsp;&nbsp;dismissOnClickOutside:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a> = true,<br>&nbsp;&nbsp;&nbsp;&nbsp;excludeFromSystemGesture:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a> = true,<br>&nbsp;&nbsp;&nbsp;&nbsp;usePlatformDefaultWidth:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a> = false<br>)</pre>
+          <div class="devsite-table-wrapper">
+            <table class="responsive">
+              <colgroup>
+                <col width="40%">
+                <col>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th colspan="100%">Parameters</th>
+                </tr>
+              </thead>
+              <tbody class="list">
+                <tr>
+                  <td><code>flags:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></code></td>
+                  <td>
+                    <p>Behavioral flags of the popup, which will be passed to the popup window's <code><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html">WindowManager.LayoutParams</a></code>. See <code><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#flags">WindowManager.LayoutParams.flags</a></code> for customization options. If <code><a href="/reference/kotlin/androidx/compose/ui/window/PopupProperties.html#inheritSecurePolicy()">inheritSecurePolicy</a></code> is true, the value of the <code><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#FLAG_SECURE">WindowManager.LayoutParams.FLAG_SECURE</a></code> bit will not be determined until the popup is constructed.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>inheritSecurePolicy:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a> = true</code></td>
+                  <td>
+                    <p>Whether <code><a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#FLAG_SECURE">WindowManager.LayoutParams.FLAG_SECURE</a></code> should be set according to <code><a href="/reference/kotlin/androidx/compose/ui/window/SecureFlagPolicy.html#Inherit">SecureFlagPolicy.Inherit</a></code>. Other <code><a href="/reference/kotlin/androidx/compose/ui/window/SecureFlagPolicy.html">SecureFlagPolicy</a></code> behaviors should be set via <code><a href="/reference/kotlin/androidx/compose/ui/window/PopupProperties.html#flags()">flags</a></code> directly.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>dismissOnBackPress:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a> = true</code></td>
+                  <td>
+                    <p>Whether the popup can be dismissed by pressing the back button. If true, pressing the back button will call onDismissRequest. Note that the popup must be <code><a href="/reference/kotlin/androidx/compose/ui/window/PopupProperties.html#focusable()">focusable</a></code> in order to receive key events such as the back button. If the popup is not <code><a href="/reference/kotlin/androidx/compose/ui/window/PopupProperties.html#focusable()">focusable</a></code>, then this property does nothing.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>dismissOnClickOutside:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a> = true</code></td>
+                  <td>
+                    <p>Whether the popup can be dismissed by clicking outside the popup's bounds. If true, clicking outside the popup will call onDismissRequest.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>excludeFromSystemGesture:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a> = true</code></td>
+                  <td>
+                    <p>A flag to check whether to set the systemGestureExclusionRects. The default is true.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>usePlatformDefaultWidth:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a> = false</code></td>
+                  <td>
+                    <p>Whether the width of the popup's content should be limited to the platform default, which is smaller than the screen width.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
         <div class="api-item"><a name="PopupProperties(kotlin.Boolean, kotlin.Boolean, kotlin.Boolean, androidx.compose.ui.window.SecureFlagPolicy, kotlin.Boolean, kotlin.Boolean)"></a><a name="PopupProperties-kotlin.Boolean-kotlin.Boolean-kotlin.Boolean-androidx.compose.ui.window.SecureFlagPolicy-kotlin.Boolean-kotlin.Boolean-"></a><a name="popupproperties"></a>
           <div class="api-name-block">

@@ -109,6 +109,28 @@
             </div>
           </div>
           <pre class="api-signature no-pretty-print"><a href="/reference/kotlin/androidx/compose/runtime/snapshots/AutoboxingStateValueProperty.html#AutoboxingStateValueProperty(kotlin.String)">AutoboxingStateValueProperty</a>(preferredPropertyName:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a>)</pre>
+          <div class="devsite-table-wrapper">
+            <table class="responsive">
+              <colgroup>
+                <col width="40%">
+                <col>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th colspan="100%">Parameters</th>
+                </tr>
+              </thead>
+              <tbody class="list">
+                <tr>
+                  <td><code>preferredPropertyName:&nbsp;<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></code></td>
+                  <td>
+                    <p>An alternative, non-boxing property that can be used instead of the annotated property. The property indicated in this property should contain the exact same value as the annotated property and should be observed in Compose in the same way, meaning that the designated replacement property can serve as a drop-in replacement to the annotated property.</p>
+                    <p>This property name will be used for suggesting quick fixes. It must match the suggested property name exactly, including its case.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </devsite-filter >
