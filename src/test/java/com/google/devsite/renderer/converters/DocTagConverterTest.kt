@@ -2625,6 +2625,36 @@ internal class DocTagConverterTest(private val displayLanguage: Language) :
         assertThat(bRow.data.description.text()).isEqualTo("not from param tag")
     }
 
+    @Test
+    fun `Parameter documentation not from @param tag does not pull in @return tag`() {
+        val documentation =
+            """
+            /**
+             * @param a from param tag
+             */
+            fun foo(
+                a: Int,
+                /**
+                 * not from param tag
+                 * @return not from param tag
+                 */
+                b: Int,
+            ) = Unit
+            """
+                .render()
+                .documentation()
+
+        val paramTable = documentation.paramList()
+        assertThat(paramTable.size).isEqualTo(2)
+        val aRow = paramTable[0]
+        assertThat(aRow.name()).isEqualTo("a")
+        assertThat(aRow.data.description.text()).isEqualTo("from param tag")
+        val bRow = paramTable[1]
+        assertThat(bRow.name()).isEqualTo("b")
+        // This doesn't include the return
+        assertThat(bRow.data.description.text()).isEqualTo("not from param tag")
+    }
+
     private fun DModule.description(
         doc: DModule.() -> Documentable = ::smartDoc
     ): DescriptionComponent {

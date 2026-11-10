@@ -400,8 +400,17 @@ internal class DocTagConverter(
             val docTags =
                 if (tag == null) {
                     // Try to find other documentation for the parameter, if there is no @param tag.
-                    val paramDocumentation =
-                        param?.documentation?.get(sourceSet)?.children?.flatMap { it.children }
+                    val tagWrappers = param?.documentation?.get(sourceSet)?.children
+                    val filteredTagWrappers =
+                        if (tagWrappers?.size == 1) {
+                            // If there's a single tag available, use it
+                            tagWrappers
+                        } else {
+                            // If there are multiple, only include a general description, not
+                            // additional tags
+                            tagWrappers?.filterIsInstance<Description>()
+                        }
+                    val paramDocumentation = filteredTagWrappers?.flatMap { it.children }
                     if (paramDocumentation.isNullOrEmpty()) {
                         if (warnIfMissing) {
                             docsHolder.printWarningFor(
